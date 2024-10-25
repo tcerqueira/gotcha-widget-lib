@@ -7,13 +7,17 @@
   "exports": {
     ".": {
       "import": "./dist/lib.es.js",
-      "require": "./dist/lib.cjs.js"
+      "require": "./dist/lib.cjs.js",
+      "types": "./dist/types/lib.d.ts"
     }
   },
   "scripts": {
     "build": "vite build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare": "npm run build"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
