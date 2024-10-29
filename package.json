@@ -1,14 +1,13 @@
 {
   "name": "@gotcha-widget/lib",
   "version": "1.0.0",
-  "main": "./dist/lib.cjs.js",
-  "module": "./dist/lib.es.js",
-  "types": "./dist/types/lib.d.ts",
+  "type": "module",
   "exports": {
     ".": {
+      "types": "./dist/types/lib.d.ts",
       "import": "./dist/lib.es.js",
       "require": "./dist/lib.cjs.js",
-      "types": "./dist/types/lib.d.ts"
+      "default": "./dist/lib.es.js"
     }
   },
   "scripts": {
