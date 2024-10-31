@@ -26,7 +26,7 @@ export type WidgetMessage =
 
 const TARGET_ORIGIN = "*";
 
-export function invokeResponseCallback(
+export async function onChallengeResponse(
   success: boolean,
   secret: string,
   win: Window = window.parent,
@@ -38,14 +38,14 @@ export function invokeResponseCallback(
   win.postMessage(message, TARGET_ORIGIN);
 }
 
-export function invokeExpiredCallback(win: Window = window.parent) {
+export async function onChallengeExpired(win: Window = window.parent) {
   const message: WidgetMessage = {
     type: "expired-callback",
   };
   win.postMessage(message, TARGET_ORIGIN);
 }
 
-export function invokeErrorCallback(win: Window = window.parent) {
+export async function onError(win: Window = window.parent) {
   const message: WidgetMessage = {
     type: "error-callback",
   };
