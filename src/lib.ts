@@ -36,7 +36,7 @@ export async function onChallengeResponse(
   success: boolean,
   win: Window = window.parent,
 ) {
-  const response = await fetch(`${origin}/api/process-challenge`, {
+  const response = await fetch(`${origin}/api/challenge/process`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
