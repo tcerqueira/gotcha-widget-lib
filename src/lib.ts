@@ -26,14 +26,28 @@ export type WidgetMessage =
 
 const TARGET_ORIGIN = "*";
 
+type ChallengeResponse = {
+  token: string;
+};
+
 export async function onChallengeResponse(
-  success: boolean,
+  origin: string,
   secret: string,
+  success: boolean,
   win: Window = window.parent,
 ) {
+  const response = await fetch(`${origin}/api/process-challenge`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ success, secret }),
+  });
+  const { token }: ChallengeResponse = await response.json();
+
   const message: WidgetMessage = {
     type: "response-callback",
-    response: generateResponseToken(success, secret || "not_found"),
+    response: token,
   };
   win.postMessage(message, TARGET_ORIGIN);
 }
@@ -50,9 +64,4 @@ export async function onError(win: Window = window.parent) {
     type: "error-callback",
   };
   win.postMessage(message, TARGET_ORIGIN);
-}
-
-// TODO: define a secure response token that can be verified server side
-function generateResponseToken(success: boolean, secret: string): string {
-  return success ? `${secret}__no-shit-sherlock` : `${secret}__L-bozo`;
 }
