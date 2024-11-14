@@ -19,21 +19,18 @@ The library exposes several functions and types to handle captcha challenge resp
 
 The challenge implementation can be hosted anywhere only. The challenge is defined as a URL, width and height.
 The Gotcha implementation will render your challenge inside an `iframe` by your given URL.
-The `src` attribute of the `iframe` will look something like this
-
-`https://your-challenge.com/tik-tak-toe.html?secret=website_api_secret`
-
-The `secret` query param will be required so you can communicate with the gotcha server.
 
 ```typescript
-import { onChallengeResponse, onChallengeExpired, onError } from '@gotcha-widget/lib';
+import { onChallengeResponse, onChallengeExpired, onChallengeError } from '@gotcha-widget/lib';
 
-// Call this when challenge is completed successfully. The secret from the URL is passed here
-await onChallengeResponse('https://origin-of-gotcha.com', 'api-secret', true);
+// Call this when challenge is completed
+await onChallengeResponse(true); // successful challenge
+// or
+await onChallengeResponse(false); // failed challenge
 
 // When challenge expires
 await onChallengeExpired();
 
 // When an error occurs
-await onError();
+await onChallengeError();
 ```
