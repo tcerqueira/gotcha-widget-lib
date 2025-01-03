@@ -3,7 +3,6 @@
  */
 export type WidgetMessage =
   | { type: "response-callback"; success: boolean }
-  | { type: "expired-callback" }
   | { type: "error-callback" };
 
 const TARGET_ORIGIN = "*";
@@ -20,17 +19,6 @@ export async function onChallengeResponse(
   const message: WidgetMessage = {
     type: "response-callback",
     success,
-  };
-  win.postMessage(message, TARGET_ORIGIN);
-}
-
-/**
- * Handles challenge expiration event
- * @param win - Target window (defaults to window.parent)
- */
-export async function onChallengeExpired(win: Window = window.parent) {
-  const message: WidgetMessage = {
-    type: "expired-callback",
   };
   win.postMessage(message, TARGET_ORIGIN);
 }

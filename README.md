@@ -28,9 +28,6 @@ await onChallengeResponse(true); // successful challenge
 // or
 await onChallengeResponse(false); // failed challenge
 
-// When challenge expires
-await onChallengeExpired();
-
 // When an error occurs
 await onChallengeError();
 ```
