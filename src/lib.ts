@@ -1,11 +1,15 @@
+import { params, interactions, type Interaction } from "./interaction";
+
+export { setup } from "./interaction";
+export { type SearchParams } from "./params";
 /**
  * Message types for widget communication
  */
 export type WidgetMessage =
-  | { type: "response-callback"; success: boolean }
+  | { type: "response-callback"; success: boolean; interactions: Interaction[] }
   | { type: "error-callback" };
 
-const TARGET_ORIGIN = "*";
+const DEFAULT_TARGET_ORIGIN = "*";
 
 /**
  * Handles the challenge response and communicates with the parent window
@@ -19,8 +23,9 @@ export async function onChallengeResponse(
   const message: WidgetMessage = {
     type: "response-callback",
     success,
+    interactions: interactions,
   };
-  win.postMessage(message, TARGET_ORIGIN);
+  win.postMessage(message, params?.sv ?? DEFAULT_TARGET_ORIGIN);
 }
 
 /**
@@ -31,5 +36,5 @@ export async function onChallengeError(win: Window = window.parent) {
   const message: WidgetMessage = {
     type: "error-callback",
   };
-  win.postMessage(message, TARGET_ORIGIN);
+  win.postMessage(message, params?.sv ?? DEFAULT_TARGET_ORIGIN);
 }
