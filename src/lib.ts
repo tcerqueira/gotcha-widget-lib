@@ -1,6 +1,6 @@
 import { params, interactions, type Interaction } from "./interaction";
 
-export { setup } from "./interaction";
+export { setup, type Interaction } from "./interaction";
 export { type SearchParams } from "./params";
 /**
  * Message types for widget communication
