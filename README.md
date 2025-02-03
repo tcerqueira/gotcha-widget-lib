@@ -1,6 +1,6 @@
 # gotcha-widget-lib - Captcha Challenge Integration Library
 
-A lightweight TypeScript library for integrating custom captcha challenges into web applications. This library provides a communication bridge between your challenge implementation and the captcha widget system.
+A lightweight TypeScript library for integrating custom gotcha captcha challenges into web applications. This library provides a communication bridge between your challenge implementation and the captcha widget system.
 
 ## Installation
 
@@ -22,6 +22,10 @@ The Gotcha implementation will render your challenge inside an `iframe` by your 
 
 ```typescript
 import { onChallengeResponse, onChallengeExpired, onChallengeError } from '@gotcha-widget/lib';
+
+// Call it once in the start to setup the lib
+// It'll capture events and metrics that will be appended to the request
+await setup();
 
 // Call this when challenge is completed
 await onChallengeResponse(true); // successful challenge
