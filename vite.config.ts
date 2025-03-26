@@ -13,7 +13,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: "src/lib.ts",
-      formats: ["es", "cjs"],
+      formats: ["es", "cjs", "umd"],
+      name: "GotchaWidgetLib",
       fileName: (format) => `lib.${format}.js`,
     },
     target: "esnext",
