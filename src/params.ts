@@ -4,31 +4,29 @@ type Badge = "bottomright" | "bottomleft" | "inline";
 
 export interface SearchParams {
   k: string;
-  hl?: string;
-  theme?: Theme;
-  size?: Size;
-  badge?: Badge;
-  sv?: string;
+  hl: string | null;
+  theme: Theme | null;
+  size: Size | null;
+  badge: Badge | null;
+  sv: string | null;
+  logoUrl: string | null;
 }
 
-export function extractSearchParams(
-  search: string | URLSearchParams,
-): SearchParams {
-  const params =
+export let params: SearchParams | null = null;
+
+export function extractSearchParams(search: string | URLSearchParams) {
+  const searchParams =
     search instanceof URLSearchParams ? search : new URLSearchParams(search);
 
   const result: SearchParams = {
-    k: params.get("k") ?? "",
-    hl: params.get("hl") ?? navigator?.language,
-    theme: (params.get("theme") as Theme) ?? "light",
-    size: (params.get("size") as Size) ?? "normal",
+    k: searchParams.get("k") ?? "",
+    hl: searchParams.get("hl") ?? navigator?.language,
+    theme: (searchParams.get("theme") as Theme) ?? "light",
+    size: (searchParams.get("size") as Size) ?? "normal",
+    badge: searchParams.get("badge") as Badge,
+    sv: searchParams.get("sv"),
+    logoUrl: searchParams.get("logoUrl"),
   };
 
-  const badge = params.get("badge") as Badge;
-  if (badge) result.badge = badge;
-
-  const sv = params.get("sv");
-  if (sv) result.sv = sv;
-
-  return result;
+  params = result;
 }

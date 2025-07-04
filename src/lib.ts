@@ -1,6 +1,11 @@
-import { params, interactions, type Interaction } from "./interaction";
+import {
+  interactions,
+  type Interaction,
+  captureInteractions,
+} from "./interaction";
+import { extractSearchParams, params } from "./params";
 
-export { setup, type Interaction } from "./interaction";
+export { type Interaction } from "./interaction";
 export { type SearchParams } from "./params";
 /**
  * Message types for widget communication
@@ -10,6 +15,14 @@ export type WidgetMessage =
   | { type: "error-callback" };
 
 const DEFAULT_TARGET_ORIGIN = "*";
+
+export async function setup(): Promise<() => void> {
+  if (params !== null) return () => {};
+
+  extractSearchParams(window.location.search);
+  const cleanupFn = captureInteractions(interactions);
+  return cleanupFn;
+}
 
 /**
  * Handles the challenge response and communicates with the parent window
