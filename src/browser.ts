@@ -1,4 +1,4 @@
-import { setup, onChallengeResponse, onChallengeError } from "./lib";
+import { setup, onChallengeResponse, onChallengeError, getParams } from "./lib";
 
 // Export everything as a global object
 declare global {
@@ -7,6 +7,7 @@ declare global {
       setup: typeof setup;
       onChallengeResponse: typeof onChallengeResponse;
       onChallengeError: typeof onChallengeError;
+      getParams: typeof getParams;
     };
   }
 }
@@ -15,4 +16,5 @@ window.GotchaWidgetLib = {
   setup,
   onChallengeResponse,
   onChallengeError,
+  getParams,
 };

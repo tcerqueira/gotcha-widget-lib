@@ -12,7 +12,7 @@ export interface SearchParams {
   logoUrl: string | null;
 }
 
-export let params: SearchParams | null = null;
+let params: SearchParams | null = null;
 
 export function extractSearchParams(search: string | URLSearchParams) {
   const searchParams =
@@ -29,4 +29,8 @@ export function extractSearchParams(search: string | URLSearchParams) {
   };
 
   params = result;
+}
+
+export function getSearchParams(): SearchParams | null {
+  return params;
 }
